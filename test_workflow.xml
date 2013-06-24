@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record model="workflow" id="workflow_test_mio">
+			<field name="name">workflow.test</field>
+			<field name="osv">test.model.start</field>
+			<field name="on_create">True</field>	
+		</record>
+		
+		<record model="workflow.activity" id="activity_start_dummy">
+			<field name="wkf_id" ref="workflow_test_mio" />
+			<field name="name">workflow.test.activity.dummy</field>
+			<field name="kind">dummy</field>
+			<field name="flow_start">True</field>	
+		</record>
+		
+		<record model="workflow.activity" id="activity_test">
+			<field name="wkf_id" ref="workflow_test_mio" />
+			<field name="name">workflow.test.activity</field>
+			<field name="kind">function</field>
+			<field name="action">create_other()</field>
+			<field name="flow_end">True</field>
+		</record>
+		
+		<record model="workflow.transition" id="transition_test">
+			<field name="act_from" ref="activity_start_dummy" />
+			<field name="act_to" ref="activity_test" />
+			<field name="condition">crear_otro == True</field>	
+		</record>
+		
+
+
+
+
+
+		<record model="ir.ui.view" id="test_model_start_form">
+			<field name="name">test.model.start.form</field>
+			<field name="model">test.model.start</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Start">
+					<field name="crear_otro" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="test_model_start_tree">
+			<field name="name">test.model.start.tree</field>
+			<field name="model">test.model.start</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Start">
+					<field name="crear_otro" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="test_model_start_window">
+			<field name="name">Test Model Start</field>
+			<field name="res_model">test.model.start</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="test_model_start_menu" name="TEEEST" action="test_model_start_window" />
+	</data>
+</openerp>
