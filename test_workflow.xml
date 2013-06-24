@@ -25,7 +25,8 @@
 		<record model="workflow.transition" id="transition_test">
 			<field name="act_from" ref="activity_start_dummy" />
 			<field name="act_to" ref="activity_test" />
-			<field name="condition">crear_otro == True</field>	
+			<field name="condition">crear_otro == True</field>
+			<field name="signal">ahora_crealo</field>
 		</record>
 		
 
@@ -40,6 +41,8 @@
 			<field name="arch" type="xml">
 				<form string="Start">
 					<field name="crear_otro" />
+					<field name="nombre" />
+					<button name="ahora_crealo" string="Dale duro Otto" />
 				</form>
 			</field>
 		</record>
@@ -50,6 +53,7 @@
 			<field name="arch" type="xml">
 				<tree string="Start">
 					<field name="crear_otro" />
+					<field name="nombre" />
 				</tree>
 			</field>
 		</record>
@@ -61,6 +65,35 @@
 			<field name="view_mode">tree,form</field>
 		</record>
 		
+		<record model="ir.ui.view" id="test_model_end_form">
+			<field name="name">test.model.end.form</field>
+			<field name="model">test.model.end</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="End">
+					<field name="creado" />
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="test_model_end_tree">
+			<field name="name">test.model.end.tree</field>
+			<field name="model">test.model.end</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="End">
+					<field name="creado" />
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="test_model_end_window">
+			<field name="name">Test Model End</field>
+			<field name="res_model">test.model.end</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
 		<menuitem id="test_model_start_menu" name="TEEEST" action="test_model_start_window" />
+		<menuitem id="test_model_end_menu" name="Finales" parent="test_model_start_menu" action="test_model_end_window" />
 	</data>
 </openerp>
